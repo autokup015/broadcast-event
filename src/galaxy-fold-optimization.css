@@ -1,0 +1,241 @@
+/* Galaxy Z Fold 5 Specific Optimizations */
+
+/* 
+  Galaxy Z Fold 5 Dimensions:
+  - Cover Screen (folded): 2316 x 904 pixels
+  - Main Screen (unfolded): 2176 x 1812 pixels
+  - Aspect ratios: 23.1:9 (cover) and 10.8:9 (main)
+*/
+
+/* Foldable device detection and optimization */
+@media (spanning: single-fold-vertical) {
+  /* When device is unfolded with vertical fold */
+  .login-container,
+  .home-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .login-card,
+  .home-content {
+    max-width: 100%;
+    grid-column: span 1;
+  }
+}
+
+@media (spanning: single-fold-horizontal) {
+  /* When device is unfolded with horizontal fold */
+  .login-container,
+  .home-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .login-card,
+  .home-content {
+    max-width: 100%;
+    grid-row: span 1;
+  }
+}
+
+/* Cover screen optimization (narrow screen) */
+@media screen and (max-width: 904px) and (min-height: 2000px) {
+  /* Portrait mode on cover screen */
+  .login-card,
+  .home-content {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .login-card h2,
+  .home-content h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-group input {
+    height: 48px; /* Minimum touch target size */
+  }
+  
+  .login-button,
+  .broadcast-button {
+    height: 48px;
+    min-width: 200px;
+  }
+}
+
+/* Main screen optimization (wide screen) */
+@media screen and (min-width: 1800px) {
+  /* Unfolded main screen */
+  .login-container,
+  .home-container {
+    padding: 3rem;
+  }
+  
+  .login-card,
+  .home-content {
+    max-width: 700px;
+    padding: 3rem;
+  }
+  
+  .login-card h2,
+  .home-content h1 {
+    font-size: 2.8rem;
+  }
+  
+  .form-group input {
+    padding: 1.2rem;
+    font-size: 1.2rem;
+  }
+  
+  .login-button,
+  .broadcast-button {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Landscape mode for cover screen */
+@media screen and (max-height: 904px) and (min-width: 1500px) {
+  .login-container,
+  .home-container {
+    padding: 1rem 2rem;
+  }
+  
+  .login-card,
+  .home-content {
+    max-width: 500px;
+    padding: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 0.8rem;
+  }
+  
+  .login-card h2,
+  .home-content h1 {
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* High pixel density adjustments */
+@media screen and (-webkit-min-device-pixel-ratio: 3) {
+  .login-card,
+  .home-content {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .login-button,
+  .broadcast-button {
+    box-shadow: 0 8px 20px rgba(116, 185, 255, 0.4);
+  }
+}
+
+/* Touch-friendly enhancements */
+.login-button,
+.broadcast-button {
+  min-height: 44px; /* Apple's recommended minimum touch target */
+  min-width: 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button::before,
+.broadcast-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.login-button:active::before,
+.broadcast-button:active::before {
+  opacity: 1;
+}
+
+/* Prevent text selection on touch */
+.login-button,
+.broadcast-button,
+.login-card h2,
+.home-content h1 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth animations for foldable transitions */
+.login-card,
+.home-content {
+  transition: all 0.3s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-card,
+  .home-content,
+  .login-button,
+  .broadcast-button {
+    transition: none;
+  }
+}
+
+/* Logout button optimizations for Galaxy Z Fold 5 */
+.logout-button {
+  min-height: 44px; /* Minimum touch target size */
+  min-width: 80px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.logout-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: inherit;
+}
+
+.logout-button:active::before {
+  opacity: 1;
+}
+
+/* Cover screen optimization (narrow screen) */
+@media screen and (max-width: 904px) and (min-height: 2000px) {
+  .logout-button {
+    min-height: 48px;
+    min-width: 88px;
+  }
+}
+
+/* Main screen optimization (wide screen) */
+@media screen and (min-width: 1800px) {
+  .logout-button {
+    min-height: 48px;
+    min-width: 120px;
+  }
+}
+
+/* Touch-friendly enhancements */
+.logout-button {
+  min-height: 44px; /* Apple's recommended minimum touch target */
+  min-width: 44px;
+  position: relative;
+  overflow: hidden;
+}
