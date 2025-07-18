@@ -1,69 +1,125 @@
-# React + TypeScript + Vite
+# 📡 Broadcast Event App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application with cross-tab communication and session management capabilities.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **🔐 Login System** - Simple username/password authentication
+- **📡 Cross-Tab Broadcasting** - Send messages across browser tabs/windows
+- **🔄 Real-time Session Sync** - Login/logout synchronization across all tabs
+- **📱 Responsive Design** - Optimized for Galaxy Z Fold 5 (cover & main screens)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v20.18.0 or higher)
+- npm or yarn
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/dinodorinna/broadcast-event.git
+cd broadcast-event
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Install dependencies**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+3. **Start development server**
+
+```bash
+npm run dev
+```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5174` (or the port shown in terminal)
+
+## 🎮 How to Use
+
+### Login Flow
+
+1. Enter any username and password
+2. Click "Login" to access the home page
+3. Open multiple tabs - no need to login again!
+
+### Cross-Tab Broadcasting
+
+1. On the home page, click "Broadcast Message"
+2. Open multiple tabs of the app
+3. Click the button in any tab - see alerts in all other tabs!
+
+### Session Management
+
+- **Login in one tab** → All tabs automatically logged in
+- **Logout in one tab** → All tabs automatically logged out
+- **Refresh any tab** → Session maintained across refreshes
+
+### Test Login/Logout Sync:
+
+1. Open 2-3 tabs of the app
+2. Login in one tab
+3. Check other tabs - should auto-redirect to home
+4. Logout in any tab - all tabs should redirect to login
+
+### Test Message Broadcasting:
+
+1. Login and open multiple tabs
+2. Go to home page in all tabs
+3. Click "Broadcast Message" in any tab
+4. See alerts appear in all other tabs
+
+## 🔧 Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 📄 Documentation
+
+- `SESSION_MANAGEMENT.md` - Cross-tab session management details
+- `CLEANUP_GUIDE.md` - Resource cleanup best practices
+- `LOGOUT_IMPLEMENTATION_GUIDE.md` - Step-by-step logout implementation
+- `DEVELOPER_HANDOFF.md` - Instructions for next developer
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Messages not broadcasting across tabs:**
+
+- Check if BroadcastChannel names match
+- Ensure channels are properly initialized
+- Verify cleanup functions are working
+
+**Session not syncing:**
+
+- Check localStorage in Developer Tools
+- Verify auth channel is working
+- Ensure event listeners are properly set up
+
+**Responsive layout issues on Galaxy Z Fold:**
+
+- Check CSS media queries
+- Verify viewport meta tag is correct
+- Test both folded and unfolded states
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test cross-tab functionality
+5. Submit a pull request
+
+---
+
+**Built with ❤️ for Samsung Galaxy Z Fold 5**
