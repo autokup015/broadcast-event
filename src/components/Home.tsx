@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 /**
  * 🚀 TODO: IMPLEMENT LOGOUT FLOW
@@ -16,22 +17,40 @@ import "./Home.css";
  * - LOGIN checks for existing auth → HOME checks for missing auth
  */
 
+const bcMsg = new BroadcastChannel("internal_notification");
 function Home() {
   const bcMsgRef = useRef<BroadcastChannel | null>(null);
+
+  const navigate = useNavigate();
+
+  // --------------------------- Function ---------------------------
+
+  const triggerEvent = () => {
+    bcMsg.postMessage("LOGOUT");
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    navigate("/");
+  };
 
   useEffect(() => {
     // TODO: Add Authentication Logic Here
 
-    const bcMsg = new BroadcastChannel("internal_notification");
     bcMsgRef.current = bcMsg;
     bcMsg.addEventListener("message", (event) => {
       alert(event.data);
+
+      if (event.data === "LOGOUT") {
+        handleLogout();
+      }
     });
 
-    return () => {
-      bcMsg.close();
-      // TODO: Add authChannel cleanup here
-    };
+    // return () => {
+    //   bcMsg.close();
+    //   // TODO: Add authChannel cleanup here
+    // };
   }, []);
 
   return (
@@ -52,6 +71,16 @@ function Home() {
               }}
             >
               Broadcast Message
+            </button>
+            <br />
+            <button
+              className="broadcast-button"
+              onClick={() => {
+                handleLogout();
+                triggerEvent();
+              }}
+            >
+              Logout
             </button>
           </div>
         </div>
